@@ -16,16 +16,16 @@ app.get("/subjects", (req, res) => {
   res.status(200).json(subjects);
 });
 
-// app.get("/students/:id", (req, res) => {
-//   const clss = req.credit.class 
-//    const students = db.prepare("SELECT * FROM students WHERE id = ?").get(req.params.id);
-  
-//   const student = db
+app.get("/students/:id", (req, res) => {
+  const student = db.prepare("SELECT * FROM students WHERE id = ?").get(req.params.id);
+  res.status(200).json(student);
+});
 
-//   
-// });
-
-
+app.post("/students", (req, res) => {
+  const { name, age, classes } = req.body;
+  const result = db.prepare("INSERT INTO students (name, age, classes) VALUES (?, ?, ?)").run(name, age, classes);
+  res.status(201).json({ id: result.lastInsertRowid });
+});
 
 
 app.listen(PORT, () => {
