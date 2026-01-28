@@ -10,6 +10,11 @@ app.get("/students", (req, res) => {
   const students = db.prepare("SELECT * FROM students where classes == ?").all(clss);
   res.status(200).json(students);
 });
+app.get("/subjects", (req, res) => {
+  const clss = req.query.class;
+  const subjects = db.prepare("SELECT * FROM subjects where name == ?").all(clss);
+  res.status(200).json(subjects);
+});
 
 // app.get("/students/:id", (req, res) => {
 //   const clss = req.credit.class 
